@@ -56,11 +56,11 @@ class RollerController:
         self.model.save_stats_to_file(data)
 
     def perform_roll(self):
-        # Calculates the total sum of all active dice and modifiers
+        # Processes all active dice and modifiers to calculate and log a final sum.
         grand_total = 0
-        log_html = ""
+        log_html = "<div style='margin-bottom: 5px;'>" # Container for the current roll set
         
-        # Sum results from all active dice pools
+        # Process Dice Rows
         for i in range(self.view.dice_layout.count()):
             w = self.view.dice_layout.itemAt(i).widget()
             if isinstance(w, DiceRow):
@@ -68,9 +68,11 @@ class RollerController:
                 total, rolls, _ = self.model.roll_dice(count, faces)
                 grand_total += total
                 rolls_str = ", ".join(map(str, rolls))
-                log_html += f"<div>🎲 <b>{count}d{faces}</b>: [{rolls_str}] = <b>{total}</b></div>"
+                # Formatting: 🎲 1d20: [15] = 15
+                log_html += (f"<div style='color: #e0e0e0;'>🎲 <b>{count}d{faces}</b>: "
+                            f"<span style='color: #888;'>[{rolls_str}]</span> = <b>{total}</b></div>")
 
-        # Apply all active modifiers to the total
+        # Process Modifier Rows
         for i in range(self.view.mod_layout.count()):
             w = self.view.mod_layout.itemAt(i).widget()
             if isinstance(w, ModRow):
@@ -79,15 +81,22 @@ class RollerController:
                 name_str = name if name else "Modifier"
                 color = "#4cd137" if val >= 0 else "#ff5555"
                 sign = "+" if val >= 0 else ""
-                log_html += f"<div>• {name_str}: <span style='color:{color}'>{sign}{val}</span></div>"
+                # Formatting: • Modifier: +5
+                log_html += (f"<div style='color: #bbb;'>• {name_str}: "
+                            f"<span style='color:{color};'>{sign}{val}</span></div>")
 
-        # Finalize the HTML entry and update the scrollable output log
-        log_html += f"<div style='margin-top:4px; border-top:1px solid #333; padding-top:2px; font-size:14px; color:#d4af37'><b>RESULT: {grand_total}</b></div><br>"
+        # Formatting the Final Result line
+        log_html += (f"<div style='margin-top: 4px; border-top: 1px solid #333; padding-top: 2px; "
+                    f"font-size: 14px; color: #d4af37;'><b>TOTAL: {grand_total}</b></div>"
+                    f"</div><br>") # Close container and add spacing between roll history
         
+        # Update the log and auto-scroll to the bottom
         self.view.log.append(log_html)
         sb = self.view.log.verticalScrollBar()
         sb.setValue(sb.maximum())
+    
 
     def run(self):
         # Displays the main application window
+
         self.view.show()
