@@ -1,0 +1,96 @@
+/* GLOBAL RESET */
+QMainWindow {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+QWidget {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+}
+
+/* INPUT FIELDS */
+QLineEdit, QSpinBox {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 4px;
+    /* FIX: Reserves space so text does not block the system arrows */
+    padding-right: 25px; 
+    color: #e0e0e0;
+}
+
+QLineEdit:focus, QSpinBox:focus {
+    border: 1px solid #d4af37;
+}
+
+/* BUTTONS */
+QPushButton {
+    background-color: #2d2d2d;
+    border: 1px solid #3d3d3d;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: #ccc;
+}
+
+QPushButton:hover {
+    background-color: #3d3d3d;
+    color: #fff;
+}
+
+/* ACTION BUTTONS */
+QPushButton#UseBtn {
+    background-color: #2b4a3b;
+    color: #8edfae;
+    border: 1px solid #365e4b;
+    font-size: 16px; 
+    padding: 0;
+}
+
+/* DELETE BUTTON */
+QPushButton#DeleteBtn {
+    background-color: transparent;
+    border: none;
+    color: #aaaaaa; 
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+}
+
+QPushButton#DeleteBtn:hover {
+    color: #ff5555;
+}
+
+/* Collapsible toggle button styling */
+QPushButton#ToggleBtn {
+    background-color: transparent;
+    border: none;
+    color: #888;
+    font-size: 14px;
+}
+
+QPushButton#ToggleBtn:hover {
+    color: #e0e0e0;
+}
+
+/* ROLL BUTTON */
+QPushButton#RollButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #a00000, stop:1 #700000);
+    border: 1px solid #c00000;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+}
+
+QPushButton#RollButton:hover {
+    border: 1px solid #ff0000;
+}
+
+/* LOG AREA */
+QTextEdit {
+    background-color: #0d0d0d;
+    border: 1px solid #222;
+    color: #aaa;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+}
